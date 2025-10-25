@@ -88,10 +88,12 @@ body {
 
 /* Landing View */
 .trophy {
-  font-size: 10px;
+  max-width: 100%;   /* Sigurohet që logo-ja të mos kalojë gjerësinë e kontenierit */
+  height: auto;      /* Lartësia përshtatet automatikisht për të ruajtur raportin */
   margin-bottom: 20px;
   animation: float 3s ease-in-out infinite;
 }
+
 
 @keyframes float {
   0%,
