@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rubbelgluck</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Language Switcher -->
+  <div class="language-switcher">
+    <button class="lang-btn active" data-lang="en">English</button>
+    <button class="lang-btn" data-lang="de">Deutsch</button>
+  </div>
+
+  <!-- Landing View -->
+  <div id="landing-view" class="view active">
+    <div class="container">
+      <div class="card">
+        <img src="./logo.png" height="500" class="trophy">
+        <h1 class="title" data-translate="title">Win Big!</h1>
+        <p class="prize-range" data-translate="prizeRange">Try your luck and win 50,000–100,000</p>
+        <p class="investment" data-translate="investment">Entry fee: Only €10</p>
+        <div class="button-group">
+          <button class="btn btn-primary" id="accept-btn" data-translate="accept">Accept</button>
+          <button class="btn btn-secondary" id="decline-btn" data-translate="decline">Decline</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Payment View -->
+<div id="payment-view" class="view">
+  <div class="container">
+    <div class="card">
+      <h2 class="subtitle">Complete Your Payment</h2>
+      <p class="payment-amount">Amount: €10.00</p>
+
+      <p>To complete your payment, please transfer <strong>€10</strong> to the following IBAN:</p>
+      <p><strong>IBAN: IE89SUMU99036510297417</strong></p>
+      <p><strong>BIC: SUMUIE22XXX</strong></p>
+
+      <p>After you make the payment, please send us an email to confirm your payment and receive your delivery:</p>
+      <p><strong>Email: rubbelgluck@gmail.com</strong></p>
+
+      <p>Thank you for your purchase!</p>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Scratch View -->
+  <div id="scratch-view" class="view">
+    <div class="container">
+      <div class="card">
+        <h2 class="subtitle" data-translate="yourTicket">Your Lottery Ticket</h2>
+        <div class="scratch-container">
+          <div class="number-display">
+            <p class="number-label" data-translate="yourNumber">Your Number:</p>
+            <div class="number-wrapper">
+              <p class="number-value" id="user-number">00</p>
+              <canvas id="scratch-canvas"></canvas>
+            </div>
+          </div>
+        </div>
+        <p class="scratch-instruction" data-translate="scratchInstruction">Scratch to reveal your number</p>
+        <div class="scratch-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="progress-text"><span id="progress-percent">0</span>% <span data-translate="scratched">scratched</span></p>
+        </div>
+        
+        <!-- Added result display below scratch card -->
+        <div id="scratch-result" class="scratch-result hidden"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result View -->
+  <div id="result-view" class="view">
+    <div class="container">
+      <div class="card result-card">
+        <div id="result-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
