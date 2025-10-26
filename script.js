@@ -1,263 +1,151 @@
-// Translations
-// Translations
-const translations = {
-  en: {
-    title: "Scratch and win online lotto",
-    prizeRange: "Try your luck and win 50,000–100,000",
-    investment: "Your investment only €10.00",
-    accept: "Accept",
-    decline: "Decline",
-    paymentTitle: "RubbelGlück",
-    paymentAmount: "Amount: €10.00",
-    
-    yourTicket: "Your Lottery Ticket",
-    yourNumber: "Your Number:",
-    scratchInstruction: "Scratch to reveal your number",
-    scratched: "scratched",
-    congratulations: "Congratulations!",
-    youWon: "You Won",
-    winMessage:
-      "Your winning number has been verified! The prize will be transferred to your account within 5-7 business days.",
-    betterLuck: "Better Luck Next Time",
-    loseMessage:
-      "This is not the winning number. Thank you for participating!",
-    playAgain: "Play Again",
-  },
-  de: {
-    title: "Online Lotto Rubbellos",
-    prizeRange: "Versuchen Sie Ihr Glück und gewinnen Sie 50.000–100.000",
-    investment: "Ihre Investition nur €10.00",
-    accept: "Akzeptieren",
-    decline: "Ablehnen",
-    paymentTitle: "RubbelGlück",
-    paymentAmount: "Betrag: €10,00",
-    
-    yourTicket: "Ihr Lottoschein",
-    yourNumber: "Ihre Nummer:",
-    scratchInstruction: "Kratzen Sie, um Ihre Nummer zu enthüllen",
-    scratched: "gekratzt",
-    congratulations: "Herzlichen Glückwunsch!",
-    youWon: "Sie Haben Gewonnen",
-    winMessage:
-      "Ihre Gewinnzahl wurde verifiziert! Der Preis wird innerhalb von 5-7 Werktagen auf Ihr Konto überwiesen.",
-    betterLuck: "Viel Glück Beim Nächsten Mal",
-    loseMessage:
-      "Dies ist nicht die Gewinnzahl. Vielen Dank für Ihre Teilnahme!",
-    playAgain: "Nochmal Spielen",
-  },
-}
-
-
-// State
-let currentLang = "en"
-let userNumber = 0
-let isWinner = false
-let winAmount = 0
-let isScratching = false
-let scratchPercentage = 0
-
-// DOM Elements
-const views = {
-  landing: document.getElementById("landing-view"),
-  payment: document.getElementById("payment-view"),
-  scratch: document.getElementById("scratch-view"),
-  result: document.getElementById("result-view"),
-}
-
-// Initialize
 document.addEventListener("DOMContentLoaded", () => {
-  setupLanguageSwitcher()
-  setupLandingButtons()
-  updateTranslations()
-})
+  const acceptBtn = document.getElementById("accept-btn");
+  const confirmBtn = document.getElementById("confirm-btn");
+  const landingView = document.getElementById("landing-view");
+  const paymentView = document.getElementById("payment-view");
+  const scratchView = document.getElementById("scratch-view");
 
-// Language Switcher
-function setupLanguageSwitcher() {
-  const langButtons = document.querySelectorAll(".lang-btn")
-  langButtons.forEach((btn) => {
+  const langButtons = document.querySelectorAll(".lang-btn");
+  let currentLang = "en";
+
+  const translations = {
+    en: {
+      title: "Scratch and win online lotto",
+      prizeRange: "Try your luck and win 50,000–100,000",
+      investment: "Your investment only €10.00",
+      accept: "Accept",
+      decline: "Decline",
+      paymentTitle: "RubbelGlück",
+      paymentAmount: "Amount: €10.00",
+      paymentInfo: "To complete your payment, please transfer €10 to the following account:",
+      paymentNote: "Once payment is made, you’ll instantly receive your online scratch ticket.",
+      yourTicket: "Your Lottery Ticket",
+      yourNumber: "Your Number:",
+      scratchInstruction: "Scratch to reveal your number",
+      scratched: "scratched",
+      scratchCanvasText: "SCRATCH HERE"
+    },
+    de: {
+      title: "Online-Lotto: Kratze und gewinne",
+      prizeRange: "Versuche dein Glück und gewinne 50.000–100.000",
+      investment: "Deine Investition nur €10.00",
+      accept: "Akzeptieren",
+      decline: "Ablehnen",
+      paymentTitle: "RubbelGlück",
+      paymentAmount: "Betrag: €10.00",
+      paymentInfo: "Um Ihre Zahlung abzuschließen, überweisen Sie bitte €10 auf folgendes Konto:",
+      paymentNote: "Nach der Zahlung erhalten Sie sofort Ihr Online-Kratzlos.",
+      yourTicket: "Ihr Lotterielos",
+      yourNumber: "Ihre Nummer:",
+      scratchInstruction: "Kratze, um deine Nummer zu sehen",
+      scratched: "gekratzt",
+      scratchCanvasText: "HIER KRATZEN"
+    }
+  };
+
+  function translatePage() {
+    document.querySelectorAll("[data-translate]").forEach(el => {
+      const key = el.getAttribute("data-translate");
+      if (translations[currentLang][key]) el.textContent = translations[currentLang][key];
+    });
+
+    // Përditëso tekstin në canvas nëse ekziston
+    const canvas = document.getElementById("scratch-canvas");
+    if (canvas && canvas.getContext) {
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#999";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "18px Arial";
+      ctx.fillStyle = "#555";
+      ctx.textAlign = "center";
+      ctx.fillText(translations[currentLang].scratchCanvasText, canvas.width / 2, canvas.height / 2 + 6);
+    }
+  }
+
+  langButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-      currentLang = btn.dataset.lang
-      langButtons.forEach((b) => b.classList.remove("active"))
-      btn.classList.add("active")
-      updateTranslations()
-    })
-  })
-}
+      currentLang = btn.dataset.lang;
+      langButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      translatePage();
+    });
+  });
 
-function updateTranslations() {
-  const elements = document.querySelectorAll("[data-translate]")
-  elements.forEach((el) => {
-    const key = el.dataset.translate
-    if (translations[currentLang][key]) {
-      if (el.tagName === "INPUT" || el.tagName === "BUTTON") {
-        if (el.placeholder !== undefined) {
-          el.placeholder = translations[currentLang][key]
+  acceptBtn.addEventListener("click", () => {
+    landingView.classList.remove("active");
+    paymentView.classList.add("active");
+  });
+
+  confirmBtn.addEventListener("click", () => {
+    paymentView.classList.remove("active");
+    scratchView.classList.add("active");
+    initScratch();
+  });
+
+  function initScratch() {
+    const canvas = document.getElementById("scratch-canvas");
+    const ctx = canvas.getContext("2d");
+    const resultDiv = document.getElementById("scratch-result");
+    const numberDisplay = document.getElementById("user-number");
+    const progressFill = document.getElementById("progress-fill");
+    const progressPercent = document.getElementById("progress-percent");
+
+    canvas.width = 200;
+    canvas.height = 100;
+
+    ctx.fillStyle = "#999";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "18px Arial";
+    ctx.fillStyle = "#555";
+    ctx.textAlign = "center";
+    ctx.fillText(translations[currentLang].scratchCanvasText, canvas.width / 2, canvas.height / 2 + 6);
+
+    let isDrawing = false;
+    let totalPixels = canvas.width * canvas.height;
+    let revealed = false;
+
+    const userNumber = Math.floor(Math.random() * 100) + 1;
+    numberDisplay.textContent = "??";
+
+    function getMousePos(e) {
+      const rect = canvas.getBoundingClientRect();
+      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function erase(x, y) {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(x, y, 12, 0, 2 * Math.PI);
+      ctx.fill();
+
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      let transparentPixels = 0;
+      for (let i = 3; i < imgData.data.length; i += 4) {
+        if (imgData.data[i] === 0) transparentPixels++;
+      }
+
+      let percent = Math.min(100, Math.round((transparentPixels / totalPixels) * 100));
+      progressFill.style.width = percent + "%";
+      progressPercent.textContent = percent;
+
+      if (percent > 50 && !revealed) {
+        revealed = true;
+        numberDisplay.textContent = userNumber;
+        resultDiv.classList.remove("hidden");
+        if (currentLang === "en") {
+          resultDiv.innerHTML = `<p><strong>Your number is: ${userNumber}</strong></p><p>Save your number – the winner will be announced on <strong>31.12.2025</strong> on our Facebook page!</p>`;
         } else {
-          el.textContent = translations[currentLang][key]
+          resultDiv.innerHTML = `<p><strong>Ihre Nummer ist: ${userNumber}</strong></p><p>Speichern Sie Ihre Nummer – der Gewinner wird am <strong>31.12.2025</strong> auf unserer Facebook-Seite bekannt gegeben!</p>`;
         }
-      } else {
-        el.textContent = translations[currentLang][key]
       }
     }
-  })
 
-  // Add payment instructions dynamically
-  const paymentCard = views.payment.querySelector(".card")
-  if (paymentCard) {
-    let paymentInstrEl = paymentCard.querySelector(".payment-instructions")
-    if (!paymentInstrEl) {
-      paymentInstrEl = document.createElement("p")
-      paymentInstrEl.classList.add("payment-instructions")
-      paymentCard.appendChild(paymentInstrEl)
-    }
-    paymentInstrEl.textContent = translations[currentLang].paymentInstructions
-  }
-}
-
-// Landing Buttons
-function setupLandingButtons() {
-  document.getElementById("accept-btn").addEventListener("click", () => {
-    showView("payment")
-  })
-
-  document.getElementById("decline-btn").addEventListener("click", () => {
-    if (
-      confirm(
-        currentLang === "en"
-          ? "Are you sure you want to decline?"
-          : "Möchten Sie wirklich ablehnen?"
-      )
-    ) {
-      window.close()
-    }
-  })
-}
-
-// Show View
-function showView(viewName) {
-  Object.values(views).forEach((view) => view.classList.remove("active"))
-  views[viewName].classList.add("active")
-}
-
-// Scratch Card
-function initScratchCard() {
-  const canvas = document.getElementById("scratch-canvas")
-  const ctx = canvas.getContext("2d")
-  const numberDisplay = document.getElementById("user-number")
-  const progressFill = document.getElementById("progress-fill")
-  const progressPercent = document.getElementById("progress-percent")
-
-  numberDisplay.textContent = userNumber.toString().padStart(2, "0")
-
-  const wrapper = canvas.parentElement
-  canvas.width = wrapper.offsetWidth
-  canvas.height = wrapper.offsetHeight
-
-  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
-  gradient.addColorStop(0, "#64748b")
-  gradient.addColorStop(1, "#475569")
-  ctx.fillStyle = gradient
-  ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-  ctx.fillStyle = "rgba(255, 255, 255, 0.3)"
-  ctx.font = "bold 24px Arial"
-  ctx.textAlign = "center"
-  ctx.textBaseline = "middle"
-  ctx.fillText("SCRATCH HERE", canvas.width / 2, canvas.height / 2)
-
-  let isDrawing = false
-
-  function getMousePos(e) {
-    const rect = canvas.getBoundingClientRect()
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY
-    return { x: clientX - rect.left, y: clientY - rect.top }
+    canvas.addEventListener("mousedown", e => { isDrawing = true; erase(getMousePos(e).x, getMousePos(e).y); });
+    canvas.addEventListener("mousemove", e => { if (isDrawing) erase(getMousePos(e).x, getMousePos(e).y); });
+    canvas.addEventListener("mouseup", () => isDrawing = false);
+    canvas.addEventListener("mouseleave", () => isDrawing = false);
   }
 
-  function scratch(x, y) {
-    ctx.globalCompositeOperation = "destination-out"
-    ctx.beginPath()
-    ctx.arc(x, y, 30, 0, Math.PI * 2)
-    ctx.fill()
-    updateProgress()
-  }
-
-  function updateProgress() {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-    const pixels = imageData.data
-    let transparent = 0
-
-    for (let i = 3; i < pixels.length; i += 4) {
-      if (pixels[i] === 0) transparent++
-    }
-
-    scratchPercentage = Math.round((transparent / (pixels.length / 4)) * 100)
-    progressFill.style.width = scratchPercentage + "%"
-    progressPercent.textContent = scratchPercentage
-
-    if (scratchPercentage >= 70 && !isScratching) {
-      isScratching = true
-      setTimeout(() => {
-        showResult()
-      }, 1000)
-    }
-  }
-
-  canvas.addEventListener("mousedown", (e) => {
-    isDrawing = true
-    scratch(...Object.values(getMousePos(e)))
-  })
-
-  canvas.addEventListener("mousemove", (e) => {
-    if (isDrawing) scratch(...Object.values(getMousePos(e)))
-  })
-
-  canvas.addEventListener("mouseup", () => {
-    isDrawing = false
-  })
-
-  canvas.addEventListener("mouseleave", () => {
-    isDrawing = false
-  })
-
-  canvas.addEventListener("touchstart", (e) => {
-    e.preventDefault()
-    isDrawing = true
-    scratch(...Object.values(getMousePos(e)))
-  })
-
-  canvas.addEventListener("touchmove", (e) => {
-    e.preventDefault()
-    if (isDrawing) scratch(...Object.values(getMousePos(e)))
-  })
-
-  canvas.addEventListener("touchend", () => {
-    isDrawing = false
-  })
-}
-
-// Show Result
-function showResult() {
-  const resultContainer = document.getElementById("scratch-result")
-  const t = translations[currentLang]
-
-  if (isWinner) {
-    resultContainer.innerHTML = `
-      <div class="result-icon">🎉</div>
-      <h2 class="result-title win">${t.congratulations}</h2>
-      <p class="win-amount">€${winAmount.toLocaleString()}</p>
-      <h3 class="result-title win">${t.youWon}</h3>
-      <p class="result-message">${t.winMessage}</p>
-      <button class="btn btn-primary" onclick="location.reload()">${t.playAgain}</button>
-    `
-  } else {
-    resultContainer.innerHTML = `
-      <div class="result-icon">😔</div>
-      <h2 class="result-title lose">${t.betterLuck}</h2>
-      <p class="result-message">${t.loseMessage}</p>
-      <button class="btn btn-primary" onclick="location.reload()">${t.playAgain}</button>
-    `
-  }
-
-  resultContainer.classList.remove("hidden")
-}
+  translatePage(); // Përkthimi fillestar
+});

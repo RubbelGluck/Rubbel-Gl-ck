@@ -70,7 +70,6 @@
       50% { transform: translateY(-8px); }
     }
 
-    /* ===== PAYMENT VIEW MODERN STYLE ===== */
     #payment-view .container .card {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -124,20 +123,44 @@
       font-size: 13px;
       color: #94a3b8;
     }
+
+    .language-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .lang-btn {
+      background: #27272a;
+      color: white;
+      border: 1px solid #444;
+      border-radius: 6px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .lang-btn.active {
+      background: #10b981;
+      border-color: #10b981;
+    }
+
+    .lang-btn:hover {
+      background: #059669;
+    }
   </style>
 </head>
 <body>
-  <!-- Language Switcher -->
   <div class="language-switcher">
     <button class="lang-btn active" data-lang="en">English</button>
     <button class="lang-btn" data-lang="de">Deutsch</button>
   </div>
 
-  <!-- Landing View -->
   <div id="landing-view" class="view active">
     <div class="container">
       <div class="card">
-        <img src="./loto.png" class="trophy">
+        <img src="./loto.png" class="trophy" alt="Lotto Trophy">
         <h1 class="title" data-translate="title">Scratch and win online lotto</h1>
         <p class="prize-range" data-translate="prizeRange">Try your luck and win 50,000–100,000</p>
         <p class="investment" data-translate="investment">Your investment only €10.00</p>
@@ -149,37 +172,30 @@
     </div>
   </div>
 
-  <!-- Payment View MODERNIZED -->
   <div id="payment-view" class="view">
     <div class="container">
       <div class="card">
-        <h2>RubbelGlück</h2>
-        <p class="payment-amount">Amount: €10.00</p>
-
-        <p>To complete your payment, please transfer <strong>€10</strong> to the following account:</p>
+        <h2 data-translate="paymentTitle">RubbelGlück</h2>
+        <p class="payment-amount" data-translate="paymentAmount">Amount: €10.00</p>
+        <p data-translate="paymentInfo">To complete your payment, please transfer €10 to the following account:</p>
         <p><strong>IBAN: IE89SUMU99036510297417</strong></p>
         <p><strong>BIC: SUMUIE22XXX</strong></p>
-
-        
         <p><strong>Email: rubbelgluck@gmail.com</strong></p>
+        <p data-translate="paymentNote">Once payment is made, you’ll instantly receive your online scratch ticket.</p>
 
-        <p>Once payment, you’ll instantly receive your online scratch ticket.</p>
-
-        <!-- Fake scratch card -->
         <div class="fake-scratch-card">
           <div class="fake-scratch-inner">
-            <p>SCRATCH</p>
+            <p data-translate="scratchCanvasText">SCRATCH HERE</p>
             <span>👇</span>
           </div>
         </div>
 
-        <button class="btn-primary">Confirm Payment</button>
-        <p class="footer-note">Thank you for playing Rubbelglück Online Lotto!</p>
+        <button class="btn-primary" id="confirm-btn" data-translate="confirmPayment">Play</button>
+        <p class="footer-note" data-translate="thankYou">Thank you for playing Rubbelglück Online Lotto!</p>
       </div>
     </div>
   </div>
 
-  <!-- Scratch View -->
   <div id="scratch-view" class="view">
     <div class="container">
       <div class="card">
@@ -201,15 +217,6 @@
           <p class="progress-text"><span id="progress-percent">0</span>% <span data-translate="scratched">scratched</span></p>
         </div>
         <div id="scratch-result" class="scratch-result hidden"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Result View -->
-  <div id="result-view" class="view">
-    <div class="container">
-      <div class="card result-card">
-        <div id="result-content"></div>
       </div>
     </div>
   </div>
