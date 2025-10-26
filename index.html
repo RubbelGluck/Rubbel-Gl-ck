@@ -3,8 +3,128 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>rubbelgluck</title>
+  <title>Rubbelglück</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ====== FAKE SCRATCH CARD STYLE ====== */
+    .fake-scratch-card {
+      width: 220px;
+      height: 140px;
+      background: linear-gradient(135deg, #3f3f46 0%, #27272a 100%);
+      border-radius: 12px;
+      margin: 30px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      animation: bounce 3s infinite ease-in-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .fake-scratch-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    .fake-scratch-inner {
+      text-align: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 1px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .fake-scratch-inner span {
+      display: block;
+      font-size: 26px;
+      margin-top: 6px;
+    }
+
+    .fake-scratch-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -75%; }
+      100% { left: 125%; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ===== PAYMENT VIEW MODERN STYLE ===== */
+    #payment-view .container .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    #payment-view h2 {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #10b981 0%, #fbbf24 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    #payment-view .payment-amount {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fbbf24;
+      margin-bottom: 20px;
+    }
+
+    #payment-view p strong {
+      color: #fbbf24;
+    }
+
+    #payment-view .btn-primary {
+      margin-top: 20px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    #payment-view .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+    }
+
+    #payment-view .footer-note {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+  </style>
 </head>
 <body>
   <!-- Language Switcher -->
@@ -17,10 +137,10 @@
   <div id="landing-view" class="view active">
     <div class="container">
       <div class="card">
-        <img src="./loto.png"  class="trophy">
-        <h1 class="title" data-translate="title">Online-Lotto</h1>
+        <img src="./loto.png" class="trophy">
+        <h1 class="title" data-translate="title">Scratch and win online lotto</h1>
         <p class="prize-range" data-translate="prizeRange">Try your luck and win 50,000–100,000</p>
-        <p class="investment" data-translate="investment">Entry fee: Only €10</p>
+        <p class="investment" data-translate="investment">Your investment only €10.00</p>
         <div class="button-group">
           <button class="btn btn-primary" id="accept-btn" data-translate="accept">Accept</button>
           <button class="btn btn-secondary" id="decline-btn" data-translate="decline">Decline</button>
@@ -28,25 +148,36 @@
       </div>
     </div>
   </div>
-<!-- Payment View -->
-<div id="payment-view" class="view">
-  <div class="container">
-    <div class="card">
-      <h2 class="subtitle">Complete Your Payment</h2>
-      <p class="payment-amount">Amount: €10.00</p>
 
-      <p>To complete your payment, please transfer <strong>€10</strong> to the following IBAN:</p>
-      <p><strong>IBAN: IE89SUMU99036510297417</strong></p>
-      <p><strong>BIC: SUMUIE22XXX</strong></p>
+  <!-- Payment View MODERNIZED -->
+  <div id="payment-view" class="view">
+    <div class="container">
+      <div class="card">
+        <h2>RubbelGlück</h2>
+        <p class="payment-amount">Amount: €10.00</p>
 
-      <p>After you make the payment, please send us an email to confirm your payment and receive your delivery:</p>
-      <p><strong>Email: rubbelgluck@gmail.com</strong></p>
+        <p>To complete your payment, please transfer <strong>€10</strong> to the following account:</p>
+        <p><strong>IBAN: IE89SUMU99036510297417</strong></p>
+        <p><strong>BIC: SUMUIE22XXX</strong></p>
 
-      <p>Thank you for your purchase!</p>
+        
+        <p><strong>Email: rubbelgluck@gmail.com</strong></p>
+
+        <p>Once payment, you’ll instantly receive your online scratch ticket.</p>
+
+        <!-- Fake scratch card -->
+        <div class="fake-scratch-card">
+          <div class="fake-scratch-inner">
+            <p>SCRATCH</p>
+            <span>👇</span>
+          </div>
+        </div>
+
+        <button class="btn-primary">Confirm Payment</button>
+        <p class="footer-note">Thank you for playing Rubbelglück Online Lotto!</p>
+      </div>
     </div>
   </div>
-</div>
-
 
   <!-- Scratch View -->
   <div id="scratch-view" class="view">
@@ -69,8 +200,6 @@
           </div>
           <p class="progress-text"><span id="progress-percent">0</span>% <span data-translate="scratched">scratched</span></p>
         </div>
-        
-        <!-- Added result display below scratch card -->
         <div id="scratch-result" class="scratch-result hidden"></div>
       </div>
     </div>

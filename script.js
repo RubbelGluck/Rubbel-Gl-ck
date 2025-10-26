@@ -1,16 +1,15 @@
 // Translations
+// Translations
 const translations = {
   en: {
-    title: "Win Big!",
+    title: "Scratch and win online lotto",
     prizeRange: "Try your luck and win 50,000–100,000",
-    prizePool: "Total prize pool: €4,000,000",
-    investment: "Entry fee: Only €10",
+    investment: "Your investment only €10.00",
     accept: "Accept",
     decline: "Decline",
-    paymentTitle: "Complete Your Payment",
+    paymentTitle: "RubbelGlück",
     paymentAmount: "Amount: €10.00",
-    paymentInstructions:
-      "To complete your payment, please transfer €10 to the IBAN and then send us an email to confirm your payment.",
+    
     yourTicket: "Your Lottery Ticket",
     yourNumber: "Your Number:",
     scratchInstruction: "Scratch to reveal your number",
@@ -20,20 +19,19 @@ const translations = {
     winMessage:
       "Your winning number has been verified! The prize will be transferred to your account within 5-7 business days.",
     betterLuck: "Better Luck Next Time",
-    loseMessage: "This is not the winning number. Thank you for participating!",
+    loseMessage:
+      "This is not the winning number. Thank you for participating!",
     playAgain: "Play Again",
   },
   de: {
-    title: "Groß Gewinnen!",
+    title: "Online Lotto Rubbellos",
     prizeRange: "Versuchen Sie Ihr Glück und gewinnen Sie 50.000–100.000",
-    prizePool: "Gesamter Preispool: €4.000.000",
-    investment: "Teilnahmegebühr: Nur €10",
+    investment: "Ihre Investition nur €10.00",
     accept: "Akzeptieren",
     decline: "Ablehnen",
-    paymentTitle: "Zahlung Abschließen",
+    paymentTitle: "RubbelGlück",
     paymentAmount: "Betrag: €10,00",
-    paymentInstructions:
-      "Bitte überweisen Sie €10 auf das IBAN und senden Sie uns anschließend eine E-Mail zur Bestätigung Ihrer Zahlung.",
+    
     yourTicket: "Ihr Lottoschein",
     yourNumber: "Ihre Nummer:",
     scratchInstruction: "Kratzen Sie, um Ihre Nummer zu enthüllen",
@@ -43,10 +41,12 @@ const translations = {
     winMessage:
       "Ihre Gewinnzahl wurde verifiziert! Der Preis wird innerhalb von 5-7 Werktagen auf Ihr Konto überwiesen.",
     betterLuck: "Viel Glück Beim Nächsten Mal",
-    loseMessage: "Dies ist nicht die Gewinnzahl. Vielen Dank für Ihre Teilnahme!",
+    loseMessage:
+      "Dies ist nicht die Gewinnzahl. Vielen Dank für Ihre Teilnahme!",
     playAgain: "Nochmal Spielen",
   },
 }
+
 
 // State
 let currentLang = "en"
