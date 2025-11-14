@@ -1,226 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rubbelglück</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Info</title>
   <style>
-    /* ====== FAKE SCRATCH CARD STYLE ====== */
-    .fake-scratch-card {
-      width: 220px;
-      height: 140px;
-      background: linear-gradient(135deg, #3f3f46 0%, #27272a 100%);
-      border-radius: 12px;
-      margin: 30px auto 0;
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e3e8ff, #f8f9ff);
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      position: relative;
-      overflow: hidden;
-      animation: bounce 3s infinite ease-in-out;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-height: 100vh;
     }
 
-    .fake-scratch-card:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    .card {
+      background: #ffffff;
+      width: 92%;
+      max-width: 480px;
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #e4e4e4;
+      animation: fadeIn 0.6s ease;
     }
 
-    .fake-scratch-inner {
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-top: 0;
       text-align: center;
-      color: #fff;
-      font-weight: 700;
-      font-size: 20px;
-      letter-spacing: 1px;
-      z-index: 2;
-      position: relative;
-    }
-
-    .fake-scratch-inner span {
-      display: block;
       font-size: 26px;
-      margin-top: 6px;
-    }
-
-    .fake-scratch-card::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -75%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(
-        120deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.2) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      animation: shine 3s infinite;
-    }
-
-    @keyframes shine {
-      0% { left: -75%; }
-      100% { left: 125%; }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-
-    #payment-view .container .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-      padding: 40px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      backdrop-filter: blur(10px);
-    }
-
-    #payment-view h2 {
-      font-size: 28px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #10b981 0%, #fbbf24 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 20px;
-    }
-
-    #payment-view .payment-amount {
-      font-size: 24px;
-      font-weight: 700;
-      color: #fbbf24;
-      margin-bottom: 20px;
-    }
-
-    #payment-view p strong {
-      color: #fbbf24;
-    }
-
-    #payment-view .btn-primary {
-      margin-top: 20px;
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 16px;
       font-weight: 600;
-      cursor: pointer;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
-      border: none;
-      transition: all 0.3s ease;
+      color: #2d2d2d;
+      margin-bottom: 20px;
     }
 
-    #payment-view .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+    .section {
+      margin-bottom: 20px;
     }
 
-    #payment-view .footer-note {
-      margin-top: 25px;
-      font-size: 13px;
-      color: #94a3b8;
+    .label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+      font-size: 15px;
+      color: #4a4a4a;
     }
 
-    .language-switcher {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 15px;
+    .value {
+      background: #f0f2ff;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #d6d8f5;
+      font-size: 15px;
+      color: #333;
     }
 
-    .lang-btn {
-      background: #27272a;
-      color: white;
-      border: 1px solid #444;
-      border-radius: 6px;
-      padding: 8px 16px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .lang-btn.active {
-      background: #10b981;
-      border-color: #10b981;
-    }
-
-    .lang-btn:hover {
-      background: #059669;
+    @media (max-width: 400px) {
+      h2 { font-size: 22px; }
+      .value { font-size: 14px; }
     }
   </style>
 </head>
 <body>
-  <div class="language-switcher">
-    <button class="lang-btn active" data-lang="en">English</button>
-    <button class="lang-btn" data-lang="de">Deutsch</button>
-  </div>
+  <div class="card">
+    <h2>Account Information</h2>
 
-  <div id="landing-view" class="view active">
-    <div class="container">
-      <div class="card">
-        <img src="./loto.png" class="trophy" alt="Lotto Trophy">
-        <h1 class="title" data-translate="title">Scratch and win online lotto</h1>
-        <p class="prize-range" data-translate="prizeRange">Try your luck and win 50,000–100,000</p>
-        <p class="investment" data-translate="investment">Your investment only €10.00</p>
-        <div class="button-group">
-          <button class="btn btn-primary" id="accept-btn" data-translate="accept">Accept</button>
-          <button class="btn btn-secondary" id="decline-btn" data-translate="decline">Decline</button>
-        </div>
-      </div>
+    <div class="section">
+      <span class="label">Name:</span>
+      <div class="value">Ersan Nuri</div>
+    </div>
+
+    <div class="section">
+      <span class="label">Address:</span>
+      <div class="value">Wasserturmallee 43, Hockenheim, Deutschland</div>
+    </div>
+
+    <div class="section">
+      <span class="label">IBAN:</span>
+      <div class="value">IE89SUMU99036510297417</div>
+    </div>
+
+    <div class="section">
+      <span class="label">BIC:</span>
+      <div class="value">SUMUIE22XXX</div>
+    </div>
+
+    <div class="section">
+      <span class="label">Bank:</span>
+      <div class="value">SumUp Limited</div>
     </div>
   </div>
 
-  <div id="payment-view" class="view">
-    <div class="container">
-      <div class="card">
-        <h2 data-translate="paymentTitle">RubbelGlück</h2>
-        <p class="payment-amount" data-translate="paymentAmount">Amount: €10.00</p>
-        <p data-translate="paymentInfo">To complete your payment, please transfer €10 to the following account:</p>
-        <p><strong>IBAN: IE89SUMU99036510297417</strong></p>
-        <p><strong>BIC: SUMUIE22XXX</strong></p>
-        <p><strong>Email: rubbelgluck@gmail.com</strong></p>
-        <p data-translate="paymentNote">Once payment is made, you’ll instantly receive your online scratch ticket.</p>
-
-        <div class="fake-scratch-card">
-          <div class="fake-scratch-inner">
-            <p data-translate="scratchCanvasText">SCRATCH HERE</p>
-            <span>👇</span>
-          </div>
-        </div>
-
-        <button class="btn-primary" id="confirm-btn" data-translate="confirmPayment">Play</button>
-        <p class="footer-note" data-translate="thankYou">Thank you for playing Rubbelglück Online Lotto!</p>
-      </div>
-    </div>
-  </div>
-
-  <div id="scratch-view" class="view">
-    <div class="container">
-      <div class="card">
-        <h2 class="subtitle" data-translate="yourTicket">Your Lottery Ticket</h2>
-        <div class="scratch-container">
-          <div class="number-display">
-            <p class="number-label" data-translate="yourNumber">Your Number:</p>
-            <div class="number-wrapper">
-              <p class="number-value" id="user-number">00</p>
-              <canvas id="scratch-canvas"></canvas>
-            </div>
-          </div>
-        </div>
-        <p class="scratch-instruction" data-translate="scratchInstruction">Scratch to reveal your number</p>
-        <div class="scratch-progress">
-          <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill"></div>
-          </div>
-          <p class="progress-text"><span id="progress-percent">0</span>% <span data-translate="scratched">scratched</span></p>
-        </div>
-        <div id="scratch-result" class="scratch-result hidden"></div>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+  <script>
+    // Currently no JS needed, but added for future expansion
+    console.log("Page Loaded");
+  </script>
 </body>
 </html>
+
